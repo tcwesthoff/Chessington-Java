@@ -1,6 +1,8 @@
 package training.chessington.model;
 
 import training.chessington.model.pieces.*;
+import training.chessington.model.pieces.Piece.PieceType;
+import training.chessington.model.pieces.Pawn;
 
 public class Board {
 
@@ -42,8 +44,22 @@ public class Board {
     }
 
     public void move(Coordinates from, Coordinates to) {
+    	
+    	Piece old_piece = board[to.getRow()][to.getCol()];
+    	Piece new_piece = board[from.getRow()][from.getCol()];
+    	
         board[to.getRow()][to.getCol()] = board[from.getRow()][from.getCol()];
         board[from.getRow()][from.getCol()] = null;
+        
+        // take piece if en passant rule is true
+        // take 
+        if ((to.getCol() != from.getCol()) && (new_piece.getType().equals(PieceType.PAWN)))
+        {
+        	if (old_piece == null)
+        	{
+        		board[to.getRow()-(new_piece.getHeading(new_piece.getColour()))][to.getCol()] = null;
+        	}
+        }
     }
 
     public void placePiece(Coordinates coords, Piece piece) {
