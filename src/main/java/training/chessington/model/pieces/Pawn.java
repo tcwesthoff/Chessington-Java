@@ -63,7 +63,7 @@ public class Pawn extends AbstractPiece {
 	    	{
 	    		Piece piece = board.get(from.plus(0, -1));
 	    		
-	    		if ((piece != null) && (!piece.getColour().equals(this.colour)))
+	    		if ((piece != null) && (piece.getType().equals(PieceType.PAWN)) && (!piece.getColour().equals(this.colour)))
 	    		{		
 	    			allowedMoves.add(new Move(from, from.plus(this.heading, -1)));
 	    		}
@@ -72,7 +72,7 @@ public class Pawn extends AbstractPiece {
 	    	{
 	    		Piece piece = board.get(from.plus(0, +1));
 	    		
-	    		if ((piece != null) && (!piece.getColour().equals(this.colour)))
+	    		if ((piece != null) && (piece.getType().equals(PieceType.PAWN)) && (!piece.getColour().equals(this.colour)))
 	    		{		
 	    			allowedMoves.add(new Move(from, from.plus(this.heading, +1)));
 	    		}

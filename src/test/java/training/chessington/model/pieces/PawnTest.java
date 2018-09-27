@@ -367,4 +367,52 @@ public class PawnTest {
          // Assert
          assertThat(moves).doesNotContain(new Move(pawnCoords, pawnCoords.plus(1, 1)));  
     }
+    
+    @Test
+    public void whitePawnsCantTakeByEnPassantIfInWrongPosition() {
+    	// Arrange
+        Board board = Board.empty();
+        Piece pawn = new Pawn(PlayerColour.WHITE);
+        Piece opposingPiece_1 = new Pawn(PlayerColour.BLACK);
+        Piece opposingPiece_2 = new Pawn(PlayerColour.BLACK);
+        Coordinates pawnCoords = new Coordinates(2, 3);
+        board.placePiece(pawnCoords, pawn);
+
+        Coordinates opposingCoords_1 = pawnCoords.plus(0, 1);
+        Coordinates opposingCoords_2 = pawnCoords.plus(0, -1);
+        board.placePiece(opposingCoords_1, opposingPiece_1);
+        board.placePiece(opposingCoords_2, opposingPiece_2);
+        
+        // Act
+        List<Move> moves = pawn.getAllowedMoves(pawnCoords, board);
+
+        // Assert
+        assertThat(moves).doesNotContain(new Move(pawnCoords, pawnCoords.plus(-1, 1)));
+        
+        assertThat(moves).doesNotContain(new Move(pawnCoords, pawnCoords.plus(-1, -1)));   
+    }
+    
+    @Test
+    public void blackPawnsCantTakeByEnPassantIfInWrongPosition() {
+    	// Arrange
+        Board board = Board.empty();
+        Piece pawn = new Pawn(PlayerColour.BLACK);
+        Piece opposingPiece_1 = new Pawn(PlayerColour.WHITE);
+        Piece opposingPiece_2 = new Pawn(PlayerColour.WHITE);
+        Coordinates pawnCoords = new Coordinates(5, 3);
+        board.placePiece(pawnCoords, pawn);
+
+        Coordinates opposingCoords_1 = pawnCoords.plus(0, 1);
+        Coordinates opposingCoords_2 = pawnCoords.plus(0, -1);
+        board.placePiece(opposingCoords_1, opposingPiece_1);
+        board.placePiece(opposingCoords_2, opposingPiece_2);
+        
+        // Act
+        List<Move> moves = pawn.getAllowedMoves(pawnCoords, board);
+
+        // Assert
+        assertThat(moves).doesNotContain(new Move(pawnCoords, pawnCoords.plus(1, 1)));
+        
+        assertThat(moves).doesNotContain(new Move(pawnCoords, pawnCoords.plus(1, -1)));
+    }
 }
