@@ -59,6 +59,24 @@ public class Pawn extends AbstractPiece {
 	    			allowedMoves.add(new Move(from, from.plus(this.heading, -1)));
 	    		}
 	    	}
+	    	if (!(outOfBounds(from.plus(this.heading, -1))) && board.get(from.plus(this.heading, -1)) == null )
+	    	{
+	    		Piece piece = board.get(from.plus(0, -1));
+	    		
+	    		if ((piece != null) && (!piece.getColour().equals(this.colour)))
+	    		{		
+	    			allowedMoves.add(new Move(from, from.plus(this.heading, -1)));
+	    		}
+	    	}
+	    	if (!(outOfBounds(from.plus(this.heading, +1))) && board.get(from.plus(this.heading, +1)) == null )
+	    	{
+	    		Piece piece = board.get(from.plus(0, +1));
+	    		
+	    		if ((piece != null) && (!piece.getColour().equals(this.colour)))
+	    		{		
+	    			allowedMoves.add(new Move(from, from.plus(this.heading, +1)));
+	    		}
+	    	}
     	}
     	
         return allowedMoves;

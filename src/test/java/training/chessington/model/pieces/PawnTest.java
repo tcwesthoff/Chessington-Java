@@ -330,4 +330,41 @@ public class PawnTest {
         
         assertThat(moves).contains(new Move(pawnCoords, pawnCoords.plus(1, -1)));
     }
+    
+    @Test
+    public void whitePawnsOnlyEnPassantBlackPawns() {
+    	//Arrange
+    	 Board board = Board.empty();
+    	 Piece pawn = new Pawn(PlayerColour.WHITE);
+    	 Piece opposingPiece_1 = new Rook(PlayerColour.BLACK);
+         Coordinates pawnCoords = new Coordinates(3, 3);
+         board.placePiece(pawnCoords, pawn);
+
+         Coordinates opposingCoords_1 = pawnCoords.plus(0, 1);
+         board.placePiece(opposingCoords_1, opposingPiece_1);
+         
+         // Act
+         List<Move> moves = pawn.getAllowedMoves(pawnCoords, board);
+
+         // Assert
+         assertThat(moves).doesNotContain(new Move(pawnCoords, pawnCoords.plus(-1, 1)));  
+    }
+    @Test
+    public void blackPawnsOnlyEnPassantBlackPawns() {
+    	//Arrange
+    	 Board board = Board.empty();
+    	 Piece pawn = new Pawn(PlayerColour.BLACK);
+    	 Piece opposingPiece_1 = new Rook(PlayerColour.WHITE);
+         Coordinates pawnCoords = new Coordinates(4, 3);
+         board.placePiece(pawnCoords, pawn);
+
+         Coordinates opposingCoords_1 = pawnCoords.plus(0, 1);
+         board.placePiece(opposingCoords_1, opposingPiece_1);
+         
+         // Act
+         List<Move> moves = pawn.getAllowedMoves(pawnCoords, board);
+
+         // Assert
+         assertThat(moves).doesNotContain(new Move(pawnCoords, pawnCoords.plus(1, 1)));  
+    }
 }
