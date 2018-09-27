@@ -12,6 +12,19 @@ public class Pawn extends AbstractPiece {
     public Pawn(PlayerColour colour) {
         super(Piece.PieceType.PAWN, colour);
     }
+    
+    public boolean outOfBounds(Coordinates coord) 
+    {
+    	if (((coord.getRow() <= 7) && (coord.getRow() >=0)) &&
+    			((coord.getCol() <= 7) && (coord.getCol() >= 0)))
+    	{
+    		return false;
+    	}
+    	else
+    	{
+    		return true;
+    	}
+    }
 
     @Override
     public List<Move> getAllowedMoves(Coordinates from, Board board) {
@@ -28,7 +41,24 @@ public class Pawn extends AbstractPiece {
 	    	}
 	    	allowedMoves.add(new Move(from, from.plus(this.heading, 0)));
     	}
+    	if (!(outOfBounds(from.plus(this.heading, 1))) && board.get(from.plus(this.heading, 1)) != null)
+    	{
+    		Piece piece = board.get(from.plus(this.heading, 1));
+    		if (!piece.getColour().equals(this.colour))
+    		{		
+    			allowedMoves.add(new Move(from, from.plus(this.heading, 1)));
+    		}
     	}
+    	if (!(outOfBounds(from.plus(this.heading, -1))) && board.get(from.plus(this.heading, -1)) != null )
+    	{
+    		Piece piece = board.get(from.plus(this.heading, -1));
+    		if (!piece.getColour().equals(this.colour))
+    		{		
+    			allowedMoves.add(new Move(from, from.plus(this.heading, -1)));
+    		}
+    	}
+    	}
+    	
         return allowedMoves;
     }
 }
