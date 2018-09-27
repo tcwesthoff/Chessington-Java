@@ -30,33 +30,35 @@ public class Pawn extends AbstractPiece {
     public List<Move> getAllowedMoves(Coordinates from, Board board) {
     	List<Move> allowedMoves = new ArrayList<>();
 
-    	if (((colour.equals(PlayerColour.WHITE) && from.getRow() >= 1) || (colour.equals(PlayerColour.BLACK) && from.getRow() <= 6))) 
+    	if (!outOfBounds(from.plus(1, 0)) && !outOfBounds(from.plus(-1, 0))) 
     	{
-    	if ((board.get(from.plus(this.heading, 0)) == null))
-    	{
-    		if (((colour.equals(PlayerColour.WHITE) && from.getRow() == 6) || (colour.equals(PlayerColour.BLACK) && from.getRow() == 1))
-    				&& board.get(from.plus((this.heading *2), 0)) == null)
+	    	if ((board.get(from.plus(this.heading, 0)) == null))
 	    	{
-	    		allowedMoves.add(new Move(from, from.plus((this.heading*2), 0)));
+	    		if (((colour.equals(PlayerColour.WHITE) && from.getRow() == 6) || (colour.equals(PlayerColour.BLACK) && from.getRow() == 1))
+	    				&& board.get(from.plus((this.heading *2), 0)) == null)
+		    	{
+		    		allowedMoves.add(new Move(from, from.plus((this.heading*2), 0)));
+		    	}
+		    	allowedMoves.add(new Move(from, from.plus(this.heading, 0)));
 	    	}
-	    	allowedMoves.add(new Move(from, from.plus(this.heading, 0)));
-    	}
-    	if (!(outOfBounds(from.plus(this.heading, 1))) && board.get(from.plus(this.heading, 1)) != null)
-    	{
-    		Piece piece = board.get(from.plus(this.heading, 1));
-    		if (!piece.getColour().equals(this.colour))
-    		{		
-    			allowedMoves.add(new Move(from, from.plus(this.heading, 1)));
-    		}
-    	}
-    	if (!(outOfBounds(from.plus(this.heading, -1))) && board.get(from.plus(this.heading, -1)) != null )
-    	{
-    		Piece piece = board.get(from.plus(this.heading, -1));
-    		if (!piece.getColour().equals(this.colour))
-    		{		
-    			allowedMoves.add(new Move(from, from.plus(this.heading, -1)));
-    		}
-    	}
+	    	if (!(outOfBounds(from.plus(this.heading, 1))) && board.get(from.plus(this.heading, 1)) != null)
+	    	{
+	    		Piece piece = board.get(from.plus(this.heading, 1));
+	    		
+	    		if (!piece.getColour().equals(this.colour))
+	    		{		
+	    			allowedMoves.add(new Move(from, from.plus(this.heading, 1)));
+	    		}
+	    	}
+	    	if (!(outOfBounds(from.plus(this.heading, -1))) && board.get(from.plus(this.heading, -1)) != null )
+	    	{
+	    		Piece piece = board.get(from.plus(this.heading, -1));
+	    		
+	    		if (!piece.getColour().equals(this.colour))
+	    		{		
+	    			allowedMoves.add(new Move(from, from.plus(this.heading, -1)));
+	    		}
+	    	}
     	}
     	
         return allowedMoves;
