@@ -61,20 +61,26 @@ public class Pawn extends AbstractPiece {
 	    	}
 	    	if (!(outOfBounds(from.plus(this.heading, -1))) && board.get(from.plus(this.heading, -1)) == null )
 	    	{
-	    		Piece piece = board.get(from.plus(0, -1));
-	    		
-	    		if ((piece != null) && (piece.getType().equals(PieceType.PAWN)) && (!piece.getColour().equals(this.colour)))
-	    		{		
-	    			allowedMoves.add(new Move(from, from.plus(this.heading, -1)));
+	    		if (((from.getRow() == 3) && (colour.equals(PlayerColour.WHITE))) || ((from.getRow() == 4) && (colour.equals(PlayerColour.BLACK))))
+	    		{
+		    		Piece piece = board.get(from.plus(0, -1));
+		    		
+		    		if ((piece != null) && (piece.getType().equals(PieceType.PAWN)) && (!piece.getColour().equals(this.colour)))
+		    		{		
+		    			allowedMoves.add(new Move(from, from.plus(this.heading, -1)));
+		    		}
 	    		}
 	    	}
-	    	if (!(outOfBounds(from.plus(this.heading, +1))) && board.get(from.plus(this.heading, +1)) == null )
+	    	if (!(outOfBounds(from.plus(this.heading, +1))) && board.get(from.plus(this.heading, +1)) == null)
 	    	{
-	    		Piece piece = board.get(from.plus(0, +1));
+	    		if (((from.getRow() == 3) && (colour.equals(PlayerColour.WHITE))) || ((from.getRow() == 4) && (colour.equals(PlayerColour.BLACK))))
+	    		{
+	    			Piece piece = board.get(from.plus(0, +1));
 	    		
-	    		if ((piece != null) && (piece.getType().equals(PieceType.PAWN)) && (!piece.getColour().equals(this.colour)))
-	    		{		
-	    			allowedMoves.add(new Move(from, from.plus(this.heading, +1)));
+	    			if ((piece != null) && (piece.getType().equals(PieceType.PAWN)) && (!piece.getColour().equals(this.colour)))
+	    			{		
+	    				allowedMoves.add(new Move(from, from.plus(this.heading, +1)));
+	    			}
 	    		}
 	    	}
     	}
